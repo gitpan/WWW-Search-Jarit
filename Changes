@@ -1,0 +1,8 @@
+2007-05-08    <Daddy@C-3PO>
+
+	* lib/WWW/Search/Jarit.pm (strip): first working version
+
+2007-05-07    <Daddy@C-3PO>
+
+	* Module created, based on WWW::Search::Search
+
