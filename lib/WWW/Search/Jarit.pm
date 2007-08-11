@@ -1,4 +1,4 @@
-# $Id: Jarit.pm,v 1.2 2007/05/08 21:51:11 Daddy Exp $
+# $Id: Jarit.pm,v 1.3 2007/08/11 15:12:37 Daddy Exp $
 
 =head1 NAME
 
@@ -26,24 +26,7 @@ be done through L<WWW::Search> objects.
 The query is applied as "ALL these words"
 (i.e. boolean AND of all the query terms)
 
-=head1 SEE ALSO
-
-To make new back-ends, see L<WWW::Search>.
-
-=head1 BUGS
-
-Please tell the author if you find any!
-
-=head1 AUTHOR
-
-C<WWW::Search::Jarit> was originally written by Martin Thurn,
-based on the code for C<WWW::Search::Search>.
-
-=head1 LEGALESE
-
-THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
-WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+=head1 PUBLIC METHODS
 
 =cut
 
@@ -64,8 +47,14 @@ use WWW::Search::Result;
 use base 'WWW::Search';
 
 my
-$VERSION = do { my @r = (q$Revision: 1.2 $ =~ /\d+/g); sprintf "%d."."%03d" x $#r, @r };
+$VERSION = do { my @r = (q$Revision: 1.3 $ =~ /\d+/g); sprintf "%d."."%03d" x $#r, @r };
 my $MAINTAINER = 'Martin Thurn <mthurn@cpan.org>';
+
+=head2 gui_query
+
+Call this if you want the same search results as the average web surfer.
+
+=cut
 
 sub gui_query
   {
@@ -73,6 +62,14 @@ sub gui_query
   return $self->native_query(@_);
   } # gui_query
 
+
+=head1 PRIVATE METHODS
+
+=head2 native_setup_search
+
+This method does the heavy lifting after you call native_query() or gui_query().
+
+=cut
 
 sub native_setup_search
   {
@@ -94,6 +91,12 @@ sub native_setup_search
     } # if
   } # native_setup_search
 
+
+=head2 http_request
+
+This private method communicates with the jarit.com server.
+
+=cut
 
 sub http_request
   {
@@ -127,14 +130,20 @@ sub http_request
   return $oRes;
   } # http_request
 
-sub preprocess_results_page_OFF
+sub _preprocess_results_page
   {
   my $self = shift;
   my $sPage = shift;
   print STDERR '='x 10, $sPage, '='x 10, "\n";
   return $sPage;
-  } # preprocess_results_page
+  } # _preprocess_results_page
 
+
+=head2 parse_tree
+
+This private method parses the HTML.
+
+=cut
 
 sub parse_tree
   {
@@ -190,7 +199,7 @@ sub parse_tree
     my $hit = new WWW::Search::Result;
     $hit->add_url($sURLImage);
     $hit->title($sCatNo);
-    $hit->description(&strip($sDesc));
+    $hit->description(&_strip($sDesc));
     push(@{$self->{cache}}, $hit);
     $self->{'_num_hits'}++;
     $hits_found++;
@@ -211,7 +220,7 @@ SKIP_RESULTS_LIST:
   } # parse_tree
 
 
-sub strip
+sub _strip
   {
   my $sRaw = shift;
   my $s = &WWW::Search::strip_tags($sRaw);
@@ -220,11 +229,32 @@ sub strip
   # Strip trailing whitespace:
   $s =~ s!  [\240\t\r\n\ ]+\Z!!x;
   return $s;
-  } # strip
+  } # _strip
 
 1;
 
 __END__
+
+=head1 SEE ALSO
+
+To make new back-ends, see L<WWW::Search>.
+
+=head1 BUGS
+
+Please tell the author if you find any!
+
+=head1 AUTHOR
+
+C<WWW::Search::Jarit> was originally written by Martin Thurn,
+based on the code for C<WWW::Search::Search>.
+
+=head1 LEGALESE
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+=cut
 
 This is the first link that users click on:
 

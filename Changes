@@ -1,3 +1,7 @@
+2007-08-11    <Daddy@C-3PO>
+
+	* lib/WWW/Search/Jarit.pm: fix pod coverage
+
 2007-05-08    <Daddy@C-3PO>
 
 	* lib/WWW/Search/Jarit.pm (strip): first working version
