@@ -1,5 +1,4 @@
 # $Id: pod-coverage.t,v 1.1 2007/04/21 14:32:46 Daddy Exp $
-use lib 'lib';
 use Test::More;
 my
 $VERSION = do { my @r = (q$Revision: 1.1 $ =~ /\d+/g); sprintf "%d."."%03d" x $#r, @r };

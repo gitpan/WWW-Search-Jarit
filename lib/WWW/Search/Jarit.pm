@@ -1,8 +1,9 @@
-# $Id: Jarit.pm,v 1.3 2007/08/11 15:12:37 Daddy Exp $
+
+# $Id: Jarit.pm,v 1.5 2008/03/07 00:22:00 Daddy Exp $
 
 =head1 NAME
 
-WWW::Search::Jarit - class for searching www.search.com
+WWW::Search::Jarit - class for searching www.jarit.com
 
 =head1 SYNOPSIS
 
@@ -14,7 +15,7 @@ WWW::Search::Jarit - class for searching www.search.com
 
 =head1 DESCRIPTION
 
-This class is a search.com specialization of L<WWW::Search>.  It
+This class is a jarit.com specialization of L<WWW::Search>.  It
 handles making and interpreting searches for medical instrument
 cross-references at F<http://www.jarit.com>.
 
@@ -47,7 +48,7 @@ use WWW::Search::Result;
 use base 'WWW::Search';
 
 my
-$VERSION = do { my @r = (q$Revision: 1.3 $ =~ /\d+/g); sprintf "%d."."%03d" x $#r, @r };
+$VERSION = do { my @r = (q$Revision: 1.5 $ =~ /\d+/g); sprintf "%d."."%03d" x $#r, @r };
 my $MAINTAINER = 'Martin Thurn <mthurn@cpan.org>';
 
 =head2 gui_query
@@ -267,4 +268,3 @@ start=start
 
 Another cross-reference search page to consider:
 http://www.amblersurgical.com/page.cfm?NavID=2&WebContentID=2
-
